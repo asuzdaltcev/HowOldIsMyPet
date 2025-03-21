@@ -74,6 +74,25 @@ Math.log(age) * 16 + 31
 // Массив для хранения истории расчетов
 let history = [];
 
+// Функция для изменения фона
+function updateBackground(petType) {
+    const mainContainer = document.querySelector('.main-container');
+    mainContainer.classList.remove('dog-bg', 'cat-bg');
+    
+    if (petType === 'dog') {
+        mainContainer.classList.add('dog-bg');
+    } else if (petType === 'cat') {
+        mainContainer.classList.add('cat-bg');
+    }
+}
+
+// Добавляем обработчики для радиокнопок
+document.querySelectorAll('input[name="pet"]').forEach(radio => {
+    radio.addEventListener('change', (e) => {
+        updateBackground(e.target.value);
+    });
+});
+
 function calculateAge() {
     // Получаем выбранное животное
     const petType = document.querySelector('input[name="pet"]:checked');
@@ -116,6 +135,9 @@ function calculateAge() {
     // Очищаем форму
     ageInput.value = '';
     petType.checked = false;
+    
+    // Возвращаем дефолтный фон
+    updateBackground(null);
 }
 
 function showHistory() {
